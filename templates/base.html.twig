@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="img/icons/logo.png" />
 	
 
 	<link href="{{asset('static/css/app.css')}}" rel="stylesheet">
@@ -20,6 +20,12 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+                {% include 'include/navbar.html.twig' %}
+                {% include 'include/topbar.html.twig' %}
+                {% block body %}{% endblock %}
+                {% include 'include/footer.html.twig' %}
+            </div>
+        </div>
     </body>
 </html>
