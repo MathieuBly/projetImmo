@@ -40,17 +40,21 @@
 
 										<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 										<div></div>
-										<button class="btn btn-lg btn-primary mx-2 my-2" type="submit">
+										<button name="sign in" class="btn btn-lg btn-primary mx-2 my-2" type="submit">
 											Sign in
 										</button>
-									</form>
+										<a class="dropdown-item" name="sign up" href="{{ path('app_register') }}">
+											<i class="align-middle me-1" data-feather="register">
+												Sign up
+											</a>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-	<script src="js/app.js"></script>
-{% endblock %}
+		</main>
+		<script src="js/app.js"></script>
+	{% endblock %}
