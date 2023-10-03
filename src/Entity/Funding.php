@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\FundingRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FundingRepository::class)]
@@ -20,6 +21,9 @@ class Funding
 
     #[ORM\Column]
     private ?int $amount_cost = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_cost = null;
 
     public function getId(): ?int
     {
@@ -46,6 +50,18 @@ class Funding
     public function setAmountCost(int $amount_cost): static
     {
         $this->amount_cost = $amount_cost;
+
+        return $this;
+    }
+
+    public function getDateCost(): ?\DateTimeInterface
+    {
+        return $this->date_cost;
+    }
+
+    public function setDateCost(\DateTimeInterface $date_cost): static
+    {
+        $this->date_cost = $date_cost;
 
         return $this;
     }

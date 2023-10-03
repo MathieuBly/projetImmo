@@ -22,6 +22,9 @@ class Location
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_sortie = null;
 
+    #[ORM\Column]
+    private ?float $Prix = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +50,18 @@ class Location
     public function setDateSortie(\DateTimeInterface $date_sortie): static
     {
         $this->date_sortie = $date_sortie;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->Prix;
+    }
+
+    public function setPrix(float $Prix): static
+    {
+        $this->Prix = $Prix;
 
         return $this;
     }
