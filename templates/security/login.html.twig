@@ -1,57 +1,56 @@
 {% extends 'empty.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Log in
+{% endblock %}
 {% block body %}
-<form method="post">
-    <main class="d-flex w-100">
-            <div class="container d-flex flex-column">
-                <div class="row vh-100">
-                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                        <div class="d-table-cell align-middle">
+	<form method="post">
+		<main class="d-flex w-100">
+			<div class="container d-flex flex-column">
+				<div class="row vh-100">
+					<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+						<div class="d-table-cell align-middle">
+							<div class="text-center mt-4">
+								<h1 class="h2">Sign in to your account to continue</h1>
+							</div>
+							<div class="card">
+								<div class="card-body">
+									<div class="m-sm-4">
+										<div class="mb-2">
+											<i class="align-middle me-2" data-feather="home"></i>
+											<span class="align-middle"></span>
+										</div>
 
-                            <div class="text-center mt-4">
-                                <h1 class="h2">Sign in to your account to continue</h1>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="m-sm-4">
-                                        <div class="mb-2">
-                                            <i class="align-middle me-2" data-feather="home"></i> <span class="align-middle"></span>
-                                        </div>
+										{% if error %}
+											<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+										{% endif %}
 
-                                        {% if error %}
-                                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                        {% endif %}
+										{% if app.user %}
+											<div class="mb-3">
+												You are logged in as
+												{{ app.user.userIdentifier }},
+												<a href="{{ path('app_logout') }}">Logout</a>
+											</div>
+										{% endif %}
 
-                                        {% if app.user %}
-                                            <div class="mb-3">
-                                                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                            </div>
-                                        {% endif %}
+										<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+										<label for="inputEmail">Email</label>
+										<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+										<label for="inputPassword">Password</label>
+										<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-                                        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                                        <label for="inputEmail">Email</label>
-                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                                        <label for="inputPassword">Password</label>
-                                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-                                        <input type="hidden" name="_csrf_token"
-                                            value="{{ csrf_token('authenticate') }}"
-                                        >
-                                        <div>
-                                        </div>
-                                        <button class="btn btn-lg btn-primary mx-2 my-2" type="submit">
-                                            Sign in
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+										<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+										<div></div>
+										<button class="btn btn-lg btn-primary mx-2 my-2" type="submit">
+											Sign in
+										</button>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-<script src="js/app.js"></script>
+	<script src="js/app.js"></script>
 {% endblock %}

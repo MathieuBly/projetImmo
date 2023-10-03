@@ -1,19 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'empty.html.twig' %}
 
-{% block title %}Register{% endblock %}
-
+{% block title %}Register
+{% endblock %}
+{% block stylesheets %}
+	<link href="{{asset('static/css/register.css')}}" rel="stylesheet">
+{% endblock %}
 {% block body %}
-    <h1>Register</h1>
+	<h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+	{{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.email) }}
+	{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+	{{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+	<button type="submit" class="btn">Register</button>
+	{{ form_end(registrationForm) }}
+	<a class="dropdown-item" href="{{ path('app_login') }}">
+		<i class="align-middle me-1" data-feather="login">
+			Sign in
+	</a>
+	{% endblock %}
