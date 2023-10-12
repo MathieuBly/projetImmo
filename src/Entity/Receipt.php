@@ -25,6 +25,10 @@ class Receipt
     #[ORM\Column(length: 255)]
     private ?string $Type_peyments = null;
 
+    #[ORM\ManyToOne(inversedBy: 'loyers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Biens $biens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +66,18 @@ class Receipt
     public function setTypePeyments(string $Type_peyments): static
     {
         $this->Type_peyments = $Type_peyments;
+
+        return $this;
+    }
+
+    public function getBiens(): ?Biens
+    {
+        return $this->biens;
+    }
+
+    public function setBiens(?Biens $biens): static
+    {
+        $this->biens = $biens;
 
         return $this;
     }

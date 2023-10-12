@@ -21,6 +21,9 @@ class AnnualCost
     #[ORM\Column]
     private ?float $T_AC = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cost')]
+    private ?Biens $biens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class AnnualCost
     public function setTAC(float $T_AC): static
     {
         $this->T_AC = $T_AC;
+
+        return $this;
+    }
+
+    public function getBiens(): ?Biens
+    {
+        return $this->biens;
+    }
+
+    public function setBiens(?Biens $biens): static
+    {
+        $this->biens = $biens;
 
         return $this;
     }

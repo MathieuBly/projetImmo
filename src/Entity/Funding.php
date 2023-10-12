@@ -25,6 +25,9 @@ class Funding
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_cost = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cost_f')]
+    private ?Biens $biens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +65,18 @@ class Funding
     public function setDateCost(\DateTimeInterface $date_cost): static
     {
         $this->date_cost = $date_cost;
+
+        return $this;
+    }
+
+    public function getBiens(): ?Biens
+    {
+        return $this->biens;
+    }
+
+    public function setBiens(?Biens $biens): static
+    {
+        $this->biens = $biens;
 
         return $this;
     }

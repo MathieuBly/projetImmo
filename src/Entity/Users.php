@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -28,6 +30,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\ManyToMany(targetEntity: Biens::class, inversedBy: 'users')]
+    private Collection $Owners;
+
+    public function __construct()
+    {
+        $this->Owners = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,5 +107,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Biens>
+     */
+    public function getOwners(): Collection
+    {
+        return $this->Owners;
+    }
+
+    public function addOwner(Biens $owner): static
+    {
+        if (!$this->Owners->contains($owner)) {
+            $this->Owners->add($owner);
+        }
+
+        return $this;
+    }
+
+    public function removeOwner(Biens $owner): static
+    {
+        $this->Owners->removeElement($owner);
+
+        return $this;
     }
 }

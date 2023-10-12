@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ResidentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,14 @@ class Resident
 
     #[ORM\Column]
     private ?int $nb_enfant = null;
+
+    #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Location::class)]
+    private Collection $Loc_R;
+
+    public function __construct()
+    {
+        $this->Loc_R = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,6 +117,36 @@ class Resident
     public function setNbEnfant(int $nb_enfant): static
     {
         $this->nb_enfant = $nb_enfant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocR(): Collection
+    {
+        return $this->Loc_R;
+    }
+
+    public function addLocR(Location $locR): static
+    {
+        if (!$this->Loc_R->contains($locR)) {
+            $this->Loc_R->add($locR);
+            $locR->setResident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocR(Location $locR): static
+    {
+        if ($this->Loc_R->removeElement($locR)) {
+            // set the owning side to null (unless already changed)
+            if ($locR->getResident() === $this) {
+                $locR->setResident(null);
+            }
+        }
 
         return $this;
     }

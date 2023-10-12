@@ -25,6 +25,13 @@ class Location
     #[ORM\Column]
     private ?float $Prix = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Loc_R')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Resident $resident = null;
+
+    #[ORM\ManyToOne(inversedBy: 'loc')]
+    private ?Biens $biens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +69,30 @@ class Location
     public function setPrix(float $Prix): static
     {
         $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    public function getResident(): ?Resident
+    {
+        return $this->resident;
+    }
+
+    public function setResident(?Resident $resident): static
+    {
+        $this->resident = $resident;
+
+        return $this;
+    }
+
+    public function getBiens(): ?Biens
+    {
+        return $this->biens;
+    }
+
+    public function setBiens(?Biens $biens): static
+    {
+        $this->biens = $biens;
 
         return $this;
     }

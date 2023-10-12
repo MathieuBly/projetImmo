@@ -21,6 +21,10 @@ class AnnuelSales
     #[ORM\Column]
     private ?int $T_AS = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Amount')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Biens $biens = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +50,18 @@ class AnnuelSales
     public function setTAS(int $T_AS): static
     {
         $this->T_AS = $T_AS;
+
+        return $this;
+    }
+
+    public function getBiens(): ?Biens
+    {
+        return $this->biens;
+    }
+
+    public function setBiens(?Biens $biens): static
+    {
+        $this->biens = $biens;
 
         return $this;
     }
